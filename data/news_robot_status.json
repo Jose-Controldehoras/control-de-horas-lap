@@ -1,0 +1,98 @@
+{
+  "lastRun": "2026-07-10T07:31:37Z",
+  "ok": true,
+  "sources": [
+    {
+      "id": "ugt-granada-web",
+      "name": "UGT Granada",
+      "ok": true,
+      "mode": "ugt_granada_html",
+      "items": 6,
+      "message": "OK"
+    },
+    {
+      "id": "ccoo-granada-web",
+      "name": "CCOO Granada",
+      "ok": true,
+      "mode": "ccoo_andalucia_html",
+      "items": 6,
+      "message": "OK"
+    },
+    {
+      "id": "granada-digital-ccoo-rss",
+      "name": "GranadaDigital - CCOO Granada",
+      "ok": true,
+      "mode": "rss",
+      "items": 11,
+      "message": "OK"
+    },
+    {
+      "id": "ugt-granada-la-palma-instagram",
+      "name": "UGT Granada La Palma",
+      "ok": false,
+      "mode": "watch",
+      "message": "Fuente limitada o bloqueada; no se publica nada automatico",
+      "title": "UGT Granada La Palma (@ugtcomiteempresa) • Instagram photos and videos"
+    },
+    {
+      "id": "ugt-granada-la-palma-facebook",
+      "name": "UGT Granada La Palma Facebook",
+      "ok": false,
+      "mode": "watch",
+      "message": "Fuente limitada o bloqueada; no se publica nada automatico",
+      "title": "UGT Granada La Palma"
+    },
+    {
+      "id": "ccoo-granada-instagram",
+      "name": "CCOO Granada Instagram",
+      "ok": false,
+      "mode": "watch",
+      "message": "Fuente limitada o bloqueada; no se publica nada automatico",
+      "title": "ccoogranada • Instagram photos and videos"
+    },
+    {
+      "id": "ccoo-granada-facebook",
+      "name": "CCOO Granada Facebook",
+      "ok": false,
+      "mode": "watch",
+      "message": "Fuente limitada o bloqueada; no se publica nada automatico",
+      "title": "CCOO Granada | Granada"
+    },
+    {
+      "id": "ugt-granada-la-palma-instagram-api",
+      "name": "UGT Granada La Palma Instagram",
+      "ok": false,
+      "mode": "meta_instagram_media",
+      "items": 0,
+      "message": "Meta API preparada, pero falta configurar: META_ACCESS_TOKEN, UGT_INSTAGRAM_USER_ID"
+    },
+    {
+      "id": "ugt-granada-la-palma-facebook-api",
+      "name": "UGT Granada La Palma Facebook",
+      "ok": false,
+      "mode": "meta_page_posts",
+      "items": 0,
+      "message": "Meta API preparada, pero falta configurar: META_ACCESS_TOKEN, UGT_FACEBOOK_PAGE_ID"
+    },
+    {
+      "id": "ccoo-granada-instagram-api",
+      "name": "CCOO Granada Instagram",
+      "ok": false,
+      "mode": "meta_instagram_media",
+      "items": 0,
+      "message": "Meta API preparada, pero falta configurar: META_ACCESS_TOKEN, CCOO_INSTAGRAM_USER_ID"
+    },
+    {
+      "id": "ccoo-granada-facebook-api",
+      "name": "CCOO Granada Facebook",
+      "ok": false,
+      "mode": "meta_page_posts",
+      "items": 0,
+      "message": "Meta API preparada, pero falta configurar: META_ACCESS_TOKEN, CCOO_FACEBOOK_PAGE_ID"
+    }
+  ],
+  "notes": [
+    "El robot ignora fuentes bloqueadas o raras.",
+    "Las fuentes html_watch solo se vigilan; no publican contenido automaticamente."
+  ]
+}

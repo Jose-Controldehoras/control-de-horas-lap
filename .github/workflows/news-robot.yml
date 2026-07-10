@@ -1,0 +1,38 @@
+name: News robot
+
+on:
+  schedule:
+    - cron: "17 6,12,18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: news-robot
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run robot
+        run: python3 tools/news_robot.py
+
+      - name: Validate generated JSON
+        run: |
+          python3 -m json.tool data/noticias.json >/dev/null
+          python3 -m json.tool data/news_robot_status.json >/dev/null
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Actualizar noticias sindicales"
+          file_pattern: "data/noticias.json data/news_robot_status.json"

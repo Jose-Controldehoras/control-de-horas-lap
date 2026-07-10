@@ -1,0 +1,91 @@
+{
+  "sources": [
+    {
+      "id": "ugt-granada-web",
+      "name": "UGT Granada",
+      "type": "ugt_granada_html",
+      "url": "https://www.ugt-andalucia.com/web/granada",
+      "limit": 6,
+      "keywords": ["granada", "convenio", "trabajador", "trabajadores", "laboral", "laborales", "empresa", "huelga", "paros"]
+    },
+    {
+      "id": "ccoo-granada-web",
+      "name": "CCOO Granada",
+      "type": "ccoo_andalucia_html",
+      "url": "https://andalucia.ccoo.es/granada",
+      "limit": 6,
+      "keywords": ["granada", "convenio", "trabajador", "trabajadores", "plantilla", "laboral", "laborales", "empresa", "huelga", "paros"]
+    },
+    {
+      "id": "granada-digital-ccoo-rss",
+      "name": "GranadaDigital - CCOO Granada",
+      "type": "rss",
+      "url": "https://www.granadadigital.es/tag/ccoo-granada/feed/",
+      "keywords": ["ccoo", "ugt", "sindicato", "trabajador", "trabajadores", "convenio", "huelga", "paro", "paros", "empresa", "laboral"]
+    },
+    {
+      "id": "ugt-granada-la-palma-instagram",
+      "name": "UGT Granada La Palma",
+      "type": "html_watch",
+      "url": "https://www.instagram.com/ugtcomiteempresa/",
+      "publishChanges": false,
+      "requiredAny": ["granada la palma", "la palma", "convenio", "trabajador", "trabajadores"]
+    },
+    {
+      "id": "ugt-granada-la-palma-facebook",
+      "name": "UGT Granada La Palma Facebook",
+      "type": "html_watch",
+      "url": "https://www.facebook.com/groups/771180669929427/",
+      "publishChanges": false,
+      "requiredAny": ["granada la palma", "la palma", "convenio", "trabajador", "trabajadores"]
+    },
+    {
+      "id": "ccoo-granada-instagram",
+      "name": "CCOO Granada Instagram",
+      "type": "html_watch",
+      "url": "https://www.instagram.com/ccoogranada/",
+      "publishChanges": false,
+      "requiredAny": ["granada la palma", "la palma sca", "la palma s.c.a", "motril la palma"]
+    },
+    {
+      "id": "ccoo-granada-facebook",
+      "name": "CCOO Granada Facebook",
+      "type": "html_watch",
+      "url": "https://www.facebook.com/ccoogranada/",
+      "publishChanges": false,
+      "requiredAny": ["granada la palma", "la palma sca", "la palma s.c.a", "motril la palma"]
+    },
+    {
+      "id": "ugt-granada-la-palma-instagram-api",
+      "name": "UGT Granada La Palma Instagram",
+      "type": "meta_instagram_media",
+      "instagramUserIdEnv": "UGT_INSTAGRAM_USER_ID",
+      "accessTokenEnv": "META_ACCESS_TOKEN",
+      "requiredAny": ["granada la palma", "la palma", "convenio", "trabajador", "trabajadores"]
+    },
+    {
+      "id": "ugt-granada-la-palma-facebook-api",
+      "name": "UGT Granada La Palma Facebook",
+      "type": "meta_page_posts",
+      "pageIdEnv": "UGT_FACEBOOK_PAGE_ID",
+      "accessTokenEnv": "META_ACCESS_TOKEN",
+      "requiredAny": ["granada la palma", "la palma", "convenio", "trabajador", "trabajadores"]
+    },
+    {
+      "id": "ccoo-granada-instagram-api",
+      "name": "CCOO Granada Instagram",
+      "type": "meta_instagram_media",
+      "instagramUserIdEnv": "CCOO_INSTAGRAM_USER_ID",
+      "accessTokenEnv": "META_ACCESS_TOKEN",
+      "requiredAny": ["granada la palma", "la palma sca", "la palma s.c.a", "motril la palma"]
+    },
+    {
+      "id": "ccoo-granada-facebook-api",
+      "name": "CCOO Granada Facebook",
+      "type": "meta_page_posts",
+      "pageIdEnv": "CCOO_FACEBOOK_PAGE_ID",
+      "accessTokenEnv": "META_ACCESS_TOKEN",
+      "requiredAny": ["granada la palma", "la palma sca", "la palma s.c.a", "motril la palma"]
+    }
+  ]
+}
