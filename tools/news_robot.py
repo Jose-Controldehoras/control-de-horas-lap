@@ -19,6 +19,43 @@ NEWS_FILE = ROOT / "data" / "noticias.json"
 STATUS_FILE = ROOT / "data" / "news_robot_status.json"
 MAX_ITEMS = 30
 USER_AGENT = "ControlHorasLAP-NewsRobot/1.0 (+https://github.com/Jose-Controldehoras/control-de-horas-lap)"
+COMPANY_TERMS = (
+    "granada la palma",
+    "la palma sca",
+    "la palma s.c.a",
+    "la palma s.c",
+    "la palma sociedad cooperativa",
+    "motril la palma",
+    "ugt granada la palma",
+    "comite empresa la palma",
+    "comite de empresa la palma",
+)
+SECTOR_TERMS = (
+    "manipulado",
+    "envasado",
+    "frutas",
+    "hortalizas",
+    "hortofruticola",
+    "hortofrutícola",
+    "campo",
+    "agrario",
+    "agricola",
+    "agrícola",
+    "agricultura",
+    "almacen",
+    "almacén",
+    "mozo",
+    "cooperativa",
+    "invernadero",
+    "cosecha",
+    "jornal",
+    "convenio del campo",
+    "sector del campo",
+    "sector agrario",
+    "sector agricola",
+    "sector agrícola",
+    "sector del manipulado",
+)
 
 
 def utc_now():
@@ -163,6 +200,18 @@ def matches_required_any(title, summary, required_any):
         return True
     haystack = normalize_text(title + " " + summary)
     return any(normalize_text(keyword) in haystack for keyword in required_any)
+
+
+def is_relevant_item(item):
+    haystack = normalize_text(" ".join([
+        item.get("source", ""),
+        item.get("title", ""),
+        item.get("summary", ""),
+        item.get("url", "")
+    ]))
+    if any(normalize_text(term) in haystack for term in COMPANY_TERMS):
+        return True
+    return any(normalize_text(term) in haystack for term in SECTOR_TERMS)
 
 
 def normalize_text(value):
@@ -409,6 +458,8 @@ def merge_items(old_items, new_items):
     merged = {}
     for item in old_items + new_items:
         if not item.get("id"):
+            continue
+        if not is_relevant_item(item):
             continue
         merged[item["id"]] = item
     return sorted(merged.values(), key=lambda item: item.get("publishedAt", ""), reverse=True)[:MAX_ITEMS]

@@ -6,7 +6,7 @@
       "type": "ugt_granada_html",
       "url": "https://www.ugt-andalucia.com/web/granada",
       "limit": 6,
-      "keywords": ["granada", "convenio", "trabajador", "trabajadores", "laboral", "laborales", "empresa", "huelga", "paros"]
+      "keywords": ["la palma", "campo", "agrario", "agricola", "agricultura", "hortofruticola", "hortalizas", "frutas", "manipulado", "envasado", "almacen", "convenio"]
     },
     {
       "id": "ccoo-granada-web",
@@ -14,14 +14,14 @@
       "type": "ccoo_andalucia_html",
       "url": "https://andalucia.ccoo.es/granada",
       "limit": 6,
-      "keywords": ["granada", "convenio", "trabajador", "trabajadores", "plantilla", "laboral", "laborales", "empresa", "huelga", "paros"]
+      "keywords": ["la palma", "campo", "agrario", "agricola", "agricultura", "hortofruticola", "hortalizas", "frutas", "manipulado", "envasado", "almacen", "convenio"]
     },
     {
       "id": "granada-digital-ccoo-rss",
       "name": "GranadaDigital - CCOO Granada",
       "type": "rss",
       "url": "https://www.granadadigital.es/tag/ccoo-granada/feed/",
-      "keywords": ["ccoo", "ugt", "sindicato", "trabajador", "trabajadores", "convenio", "huelga", "paro", "paros", "empresa", "laboral"]
+      "keywords": ["la palma", "campo", "agrario", "agricola", "agricultura", "hortofruticola", "hortalizas", "frutas", "manipulado", "envasado", "almacen", "convenio"]
     },
     {
       "id": "ugt-granada-la-palma-instagram",
