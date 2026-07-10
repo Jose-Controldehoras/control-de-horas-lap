@@ -81,6 +81,30 @@ def absolute_url(base_url, link):
     return urllib.parse.urljoin(base_url, html.unescape(link or "").strip())
 
 
+def fix_mojibake(value):
+    if not value:
+        return ""
+    markers = ("\u00c3", "\u00c2", "\u00e2", "\ufffd")
+    if not any(marker in value for marker in markers):
+        return value
+
+    def score(text):
+        return sum(text.count(marker) for marker in markers)
+
+    best = value
+    best_score = score(value)
+    for source_encoding in ("latin1", "cp1252"):
+        try:
+            fixed = value.encode(source_encoding, errors="ignore").decode("utf-8", errors="ignore")
+            fixed_score = score(fixed)
+            if fixed and fixed_score < best_score:
+                best = fixed
+                best_score = fixed_score
+        except Exception:
+            pass
+    return best
+
+
 def parse_date(value):
     if not value:
         return ""
