@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-10T07:41:58Z",
+  "lastRun": "2026-07-10T07:43:35Z",
   "ok": true,
   "sources": [
     {
@@ -21,10 +21,8 @@
     {
       "id": "granada-digital-ccoo-rss",
       "name": "GranadaDigital - CCOO Granada",
-      "ok": true,
-      "mode": "rss",
-      "items": 11,
-      "message": "OK"
+      "ok": false,
+      "message": "No se pudo leer la fuente: HTTPError"
     },
     {
       "id": "ugt-granada-la-palma-instagram",
@@ -32,7 +30,7 @@
       "ok": false,
       "mode": "watch",
       "message": "Fuente limitada o bloqueada; no se publica nada automatico",
-      "title": "UGT Granada La Palma (@ugtcomiteempresa) • Instagram photos and videos"
+      "title": "Instagram"
     },
     {
       "id": "ugt-granada-la-palma-facebook",
@@ -40,7 +38,7 @@
       "ok": false,
       "mode": "watch",
       "message": "Fuente limitada o bloqueada; no se publica nada automatico",
-      "title": "UGT Granada La Palma"
+      "title": "Facebook"
     },
     {
       "id": "ccoo-granada-instagram",
@@ -48,7 +46,7 @@
       "ok": false,
       "mode": "watch",
       "message": "Fuente limitada o bloqueada; no se publica nada automatico",
-      "title": "ccoogranada • Instagram photos and videos"
+      "title": "Instagram"
     },
     {
       "id": "ccoo-granada-facebook",
