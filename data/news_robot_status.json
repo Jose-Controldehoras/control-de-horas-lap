@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-11T13:54:59Z",
+  "lastRun": "2026-07-11T19:32:36Z",
   "ok": true,
   "sources": [
     {
@@ -28,9 +28,7 @@
       "id": "ugt-granada-la-palma-instagram",
       "name": "UGT Granada La Palma",
       "ok": false,
-      "mode": "watch",
-      "message": "Fuente limitada o bloqueada; no se publica nada automatico",
-      "title": "Instagram"
+      "message": "No se pudo leer la fuente: HTTPError"
     },
     {
       "id": "ugt-granada-la-palma-facebook",
@@ -44,9 +42,7 @@
       "id": "ccoo-granada-instagram",
       "name": "CCOO Granada Instagram",
       "ok": false,
-      "mode": "watch",
-      "message": "Fuente limitada o bloqueada; no se publica nada automatico",
-      "title": "Instagram"
+      "message": "No se pudo leer la fuente: HTTPError"
     },
     {
       "id": "ccoo-granada-facebook",
