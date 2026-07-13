@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-13T15:12:25Z",
+  "lastRun": "2026-07-13T19:50:01Z",
   "ok": true,
   "sources": [
     {
@@ -50,7 +50,7 @@
       "ok": false,
       "mode": "watch",
       "message": "Fuente limitada o bloqueada; no se publica nada automatico",
-      "title": "Facebook"
+      "title": "CCOO Granada | Granada"
     },
     {
       "id": "ugt-granada-la-palma-instagram-api",
