@@ -1,9 +1,9 @@
 {
-  "lastRun": "2026-07-16T17:58:02Z",
+  "lastRun": "2026-07-16T18:10:14Z",
   "lastBoeScan": "20260716",
   "boe": {
     "ok": true,
-    "message": "Revisados sumarios desde 2026-07-17. 0 cambios de SMI detectados."
+    "message": "No habia dias nuevos desde la ultima revision. 0 cambios de SMI detectados."
   },
   "bopGranada": {
     "ok": true,
