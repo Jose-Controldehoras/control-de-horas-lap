@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-16T18:00:00Z",
+  "smi": [
+    {
+      "revision": "smi-2022",
+      "year": 2022,
+      "daily": 33.33,
+      "monthly": 1000.0,
+      "annual": 14000.0,
+      "effectiveFrom": "2022-01-01"
+    },
+    {
+      "revision": "smi-2023",
+      "year": 2023,
+      "daily": 36.0,
+      "monthly": 1080.0,
+      "annual": 15120.0,
+      "effectiveFrom": "2023-01-01"
+    },
+    {
+      "revision": "smi-2024",
+      "year": 2024,
+      "daily": 37.8,
+      "monthly": 1134.0,
+      "annual": 15876.0,
+      "effectiveFrom": "2024-01-01"
+    },
+    {
+      "revision": "smi-2025-boe-a-2025-2576",
+      "year": 2025,
+      "daily": 39.47,
+      "monthly": 1184.0,
+      "annual": 16576.0,
+      "effectiveFrom": "2025-01-01",
+      "publishedAt": "2025-02-12",
+      "reference": "BOE-A-2025-2576",
+      "officialUrl": "https://www.boe.es/buscar/act.php?id=BOE-A-2025-2576"
+    },
+    {
+      "revision": "smi-2026-boe-a-2026-3815",
+      "year": 2026,
+      "daily": 40.7,
+      "monthly": 1221.0,
+      "annual": 17094.0,
+      "effectiveFrom": "2026-01-01",
+      "publishedAt": "2026-02-19",
+      "reference": "BOE-A-2026-3815",
+      "officialUrl": "https://www.boe.es/buscar/act.php?id=BOE-A-2026-3815"
+    }
+  ],
+  "salaryTables": {
+    "frutas_granada": {
+      "revision": "frutas-granada-2026-bop-gra-2026-005003",
+      "effectiveFrom": "2026-01-01",
+      "publishedAt": "2026-01-12",
+      "reference": "BOP-GRA-2026-005003",
+      "officialUrl": "https://bop.dipgra.es/export/sites/bop/.galleries/Documentos-Anuncios-en-PDF/firmado-1768176033627-final-7144fa4c.pdf",
+      "summary": "Tabla oficial aplicable desde enero de 2026.",
+      "rates": {
+        "mozo": {
+          "normal": 9.73,
+          "carencia": 0.04,
+          "night22": 9.77,
+          "nightRest": 11.73,
+          "extra": 11.73,
+          "extraNight22": 13.68,
+          "extraNightRest": 15.63
+        },
+        "jefe": {
+          "normal": 10.72,
+          "carencia": 0.05,
+          "night22": 11.45,
+          "nightRest": 13.74,
+          "extra": 13.74,
+          "extraNight22": 16.03,
+          "extraNightRest": 18.33
+        }
+      }
+    }
+  },
+  "news": [
+    {
+      "id": "labor-smi-2026",
+      "kind": "official_update",
+      "source": "Actualizacion laboral oficial",
+      "title": "SMI 2026 actualizado en la app",
+      "summary": "El SMI es de 40,70 EUR al dia y 1.221 EUR al mes, con efectos desde el 1 de enero de 2026. La app usa este importe para las vacaciones pagadas de trabajadores fijos.",
+      "publishedAt": "2026-02-19T00:00:00Z",
+      "effectiveFrom": "2026-01-01",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2026-3815"
+    },
+    {
+      "id": "labor-convenio-frutas-granada-2026",
+      "kind": "official_update",
+      "source": "Convenio oficial de Granada",
+      "title": "Tabla salarial oficial aplicada desde enero de 2026",
+      "summary": "La tabla fija 9,77 EUR/h para manipulador o mozo y 10,77 EUR/h para jefa o jefe de linea y equipo, incluyendo el plus de carencia. Una tabla futura requerira confirmacion antes de recalcular tus meses.",
+      "publishedAt": "2026-01-12T00:00:00Z",
+      "effectiveFrom": "2026-01-01",
+      "url": "https://bop.dipgra.es/export/sites/bop/.galleries/Documentos-Anuncios-en-PDF/firmado-1768176033627-final-7144fa4c.pdf"
+    }
+  ]
+}

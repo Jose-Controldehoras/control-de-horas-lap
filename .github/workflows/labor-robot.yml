@@ -1,0 +1,41 @@
+name: Labor values robot
+
+on:
+  schedule:
+    - cron: "42 7 * * 1,3,5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-labor-values:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: labor-values-robot
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install PDF reader
+        run: python3 -m pip install --disable-pip-version-check pypdf
+
+      - name: Run labor robot
+        run: python3 tools/labor_robot.py
+
+      - name: Validate generated JSON
+        run: |
+          python3 -m json.tool data/laboral.json >/dev/null
+          python3 -m json.tool data/labor_robot_status.json >/dev/null
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Actualizar valores laborales oficiales"
+          file_pattern: "data/laboral.json data/labor_robot_status.json"
