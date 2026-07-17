@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-17T08:28:54Z",
+  "lastRun": "2026-07-17T14:04:09Z",
   "ok": true,
   "sources": [
     {
@@ -7,7 +7,7 @@
       "name": "UGT Granada",
       "ok": true,
       "mode": "ugt_granada_html",
-      "items": 3,
+      "items": 2,
       "message": "OK"
     },
     {
