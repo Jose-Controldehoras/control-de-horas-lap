@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-08-09T13:15:38Z",
+  "lastRun": "2026-08-09T19:01:17Z",
   "ok": true,
   "sources": [
     {
@@ -30,7 +30,7 @@
       "ok": false,
       "mode": "watch",
       "message": "Fuente limitada o bloqueada; no se publica nada automatico",
-      "title": "Instagram"
+      "title": "UGT Granada La Palma (@ugtcomiteempresa) • Instagram photos and videos"
     },
     {
       "id": "ugt-granada-la-palma-facebook",
@@ -46,7 +46,7 @@
       "ok": false,
       "mode": "watch",
       "message": "Fuente limitada o bloqueada; no se publica nada automatico",
-      "title": "Instagram"
+      "title": "ccoogranada • Instagram photos and videos"
     },
     {
       "id": "ccoo-granada-facebook",
