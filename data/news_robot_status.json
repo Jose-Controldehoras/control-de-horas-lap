@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-09-02T16:35:33Z",
+  "lastRun": "2026-09-02T21:04:18Z",
   "ok": true,
   "sources": [
     {
@@ -13,8 +13,10 @@
     {
       "id": "ccoo-granada-web",
       "name": "CCOO Granada",
-      "ok": false,
-      "message": "No se pudo leer la fuente: TimeoutError"
+      "ok": true,
+      "mode": "ccoo_andalucia_html",
+      "items": 6,
+      "message": "OK"
     },
     {
       "id": "granada-digital-ccoo-rss",
@@ -26,7 +28,9 @@
       "id": "ugt-granada-la-palma-instagram",
       "name": "UGT Granada La Palma",
       "ok": false,
-      "message": "No se pudo leer la fuente: HTTPError"
+      "mode": "watch",
+      "message": "Fuente limitada o bloqueada; no se publica nada automatico",
+      "title": "Instagram"
     },
     {
       "id": "ugt-granada-la-palma-facebook",
@@ -40,7 +44,9 @@
       "id": "ccoo-granada-instagram",
       "name": "CCOO Granada Instagram",
       "ok": false,
-      "message": "No se pudo leer la fuente: HTTPError"
+      "mode": "watch",
+      "message": "Fuente limitada o bloqueada; no se publica nada automatico",
+      "title": "Instagram"
     },
     {
       "id": "ccoo-granada-facebook",
