@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-09-03T11:16:11Z",
+  "lastRun": "2026-09-03T16:26:24Z",
   "ok": true,
   "sources": [
     {
@@ -13,10 +13,8 @@
     {
       "id": "ccoo-granada-web",
       "name": "CCOO Granada",
-      "ok": true,
-      "mode": "ccoo_andalucia_html",
-      "items": 6,
-      "message": "OK"
+      "ok": false,
+      "message": "No se pudo leer la fuente: TimeoutError"
     },
     {
       "id": "granada-digital-ccoo-rss",
