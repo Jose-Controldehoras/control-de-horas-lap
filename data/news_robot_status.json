@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-09-04T20:46:36Z",
+  "lastRun": "2026-09-05T10:36:41Z",
   "ok": true,
   "sources": [
     {
@@ -7,7 +7,7 @@
       "name": "UGT Granada",
       "ok": true,
       "mode": "ugt_granada_html",
-      "items": 3,
+      "items": 0,
       "message": "OK"
     },
     {
@@ -50,7 +50,7 @@
       "ok": false,
       "mode": "watch",
       "message": "Fuente limitada o bloqueada; no se publica nada automatico",
-      "title": "CCOO Granada | Granada"
+      "title": "Facebook"
     },
     {
       "id": "ugt-granada-la-palma-instagram-api",
