@@ -1,7 +1,15 @@
 {
-  "lastRun": "2026-09-06T20:25:05Z",
+  "lastRun": "2026-09-07T06:24:49Z",
   "ok": true,
   "sources": [
+    {
+      "id": "ugt-granada-la-palma-x",
+      "name": "UGT Granada La Palma",
+      "ok": false,
+      "mode": "x_user_posts",
+      "items": 0,
+      "message": "X API preparada, pero falta configurar: X_BEARER_TOKEN"
+    },
     {
       "id": "ugt-granada-web",
       "name": "UGT Granada",
