@@ -23,6 +23,14 @@ Las fuentes de Instagram/Facebook quedan en modo vigilancia si no hay API oficia
 
 Si no aparece nada exacto de Granada La Palma, el robot mantiene noticias sindicales de Granada relacionadas con trabajadores, convenio, huelgas, paros, plantilla o condiciones laborales. Así la sección no queda vacía, pero la app muestra siempre la fuente original.
 
+## X API
+
+El robot puede leer las publicaciones de @UGT_LAPALMA mediante la API oficial de X y conservar el enlace original de cada imagen. Para activarlo hay que crear el secreto de GitHub Actions:
+
+- `X_BEARER_TOKEN`
+
+El robot no descarga ni vuelve a publicar los archivos: guarda la URL HTTPS oficial de la imagen y la app abre siempre la publicacion original. Si falta el token o X rechaza la consulta, se conservan las noticias validas anteriores.
+
 ## Meta API
 
 El robot esta preparado para usar la Graph API oficial de Meta si se configuran estos secretos en GitHub Actions:

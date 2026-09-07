@@ -23,7 +23,17 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Validate robot
+        run: python3 tools/test_news_robot.py
+
       - name: Run robot
+        env:
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+          UGT_INSTAGRAM_USER_ID: ${{ secrets.UGT_INSTAGRAM_USER_ID }}
+          UGT_FACEBOOK_PAGE_ID: ${{ secrets.UGT_FACEBOOK_PAGE_ID }}
+          CCOO_INSTAGRAM_USER_ID: ${{ secrets.CCOO_INSTAGRAM_USER_ID }}
+          CCOO_FACEBOOK_PAGE_ID: ${{ secrets.CCOO_FACEBOOK_PAGE_ID }}
         run: python3 tools/news_robot.py
 
       - name: Validate generated JSON

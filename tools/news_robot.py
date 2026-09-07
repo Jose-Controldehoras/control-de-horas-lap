@@ -92,6 +92,22 @@ def fetch_json(url, params):
     return json.loads(text)
 
 
+def fetch_json_with_headers(url, params=None, headers=None):
+    query = urllib.parse.urlencode(params or {})
+    request_headers = {
+        "User-Agent": USER_AGENT,
+        "Accept": "application/json"
+    }
+    request_headers.update(headers or {})
+    request = urllib.request.Request(
+        url + ("?" + query if query else ""),
+        headers=request_headers
+    )
+    with urllib.request.urlopen(request, timeout=20) as response:
+        raw = response.read(2_000_000)
+    return json.loads(raw.decode("utf-8", errors="replace"))
+
+
 def clean_text(value):
     value = html.unescape(value or "")
     value = fix_mojibake(value)
@@ -148,6 +164,13 @@ def parse_date(value):
     value = clean_text(value)
     try:
         parsed = email.utils.parsedate_to_datetime(value)
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=dt.timezone.utc)
+        return parsed.astimezone(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    except Exception:
+        pass
+    try:
+        parsed = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
         if parsed.tzinfo is None:
             parsed = parsed.replace(tzinfo=dt.timezone.utc)
         return parsed.astimezone(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
@@ -378,7 +401,7 @@ def parse_meta_page_posts(source):
     root = fetch_json(
         f"https://graph.facebook.com/{version}/{page_id}/posts",
         {
-            "fields": "id,message,created_time,permalink_url",
+            "fields": "id,message,created_time,permalink_url,full_picture",
             "limit": str(source.get("limit", 10)),
             "access_token": token
         }
@@ -397,7 +420,8 @@ def parse_meta_page_posts(source):
             "summary": summary[:260],
             "url": link,
             "publishedAt": parse_date(post.get("created_time", "")),
-            "kind": "meta_facebook"
+            "kind": "meta_facebook",
+            "imageUrl": post.get("full_picture", "")
         })
     return items, {
         "id": source["id"],
@@ -423,7 +447,7 @@ def parse_meta_instagram_media(source):
     root = fetch_json(
         f"https://graph.facebook.com/{version}/{ig_user_id}/media",
         {
-            "fields": "id,caption,permalink,timestamp,media_type",
+            "fields": "id,caption,permalink,timestamp,media_type,media_url,thumbnail_url",
             "limit": str(source.get("limit", 10)),
             "access_token": token
         }
@@ -442,7 +466,8 @@ def parse_meta_instagram_media(source):
             "summary": caption[:260],
             "url": link,
             "publishedAt": parse_date(media.get("timestamp", "")),
-            "kind": "meta_instagram"
+            "kind": "meta_instagram",
+            "imageUrl": media.get("media_url") or media.get("thumbnail_url") or ""
         })
     return items, {
         "id": source["id"],
@@ -454,7 +479,104 @@ def parse_meta_instagram_media(source):
     }
 
 
-def merge_items(old_items, new_items):
+def missing_x_status(source, missing):
+    return {
+        "id": source["id"],
+        "name": source["name"],
+        "ok": False,
+        "mode": "x_user_posts",
+        "items": 0,
+        "message": "X API preparada, pero falta configurar: " + missing
+    }
+
+
+def parse_x_user_posts(source):
+    token_env = source.get("accessTokenEnv", "X_BEARER_TOKEN")
+    token = os.environ.get(token_env, "").strip()
+    if not token:
+        return [], missing_x_status(source, token_env)
+
+    username = source.get("username", "").strip().lstrip("@")
+    if not username:
+        raise ValueError("Falta username en la fuente de X")
+    headers = {"Authorization": "Bearer " + token}
+    user_root = fetch_json_with_headers(
+        "https://api.x.com/2/users/by/username/" + urllib.parse.quote(username),
+        {"user.fields": "id,name,username"},
+        headers
+    )
+    user = user_root.get("data") or {}
+    user_id = str(user.get("id", "")).strip()
+    if not user_id:
+        raise ValueError("X no devolvio el usuario solicitado")
+
+    limit = max(5, min(100, int(source.get("limit", 10))))
+    root = fetch_json_with_headers(
+        "https://api.x.com/2/users/" + urllib.parse.quote(user_id) + "/tweets",
+        {
+            "max_results": str(limit),
+            "exclude": "retweets,replies",
+            "tweet.fields": "created_at,attachments",
+            "expansions": "attachments.media_keys",
+            "media.fields": "media_key,type,url,preview_image_url,alt_text"
+        },
+        headers
+    )
+    media_by_key = {
+        media.get("media_key", ""): media
+        for media in (root.get("includes", {}).get("media", []) or [])
+        if media.get("media_key")
+    }
+    items = []
+    for post in root.get("data", []) or []:
+        summary = clean_text(post.get("text", ""))
+        if not summary:
+            continue
+        post_id = str(post.get("id", "")).strip()
+        link = "https://x.com/" + username + "/status/" + post_id
+        media_keys = (post.get("attachments") or {}).get("media_keys", []) or []
+        image_url = ""
+        image_alt = ""
+        for media_key in media_keys:
+            media = media_by_key.get(media_key, {})
+            candidate = media.get("url") or media.get("preview_image_url") or ""
+            if candidate:
+                image_url = candidate
+                image_alt = clean_text(media.get("alt_text", ""))
+                break
+        title = summary.split("\n", 1)[0]
+        if len(title) > 105:
+            title = title[:102].rstrip() + "..."
+        items.append({
+            "id": "x-" + post_id,
+            "sourceId": source["id"],
+            "postId": post_id,
+            "source": source["name"],
+            "title": title or "Publicacion de " + source["name"],
+            "summary": summary[:500],
+            "url": link,
+            "publishedAt": parse_date(post.get("created_at", "")),
+            "kind": "x_post",
+            "imageUrl": image_url,
+            "imageAlt": image_alt or ("Imagen publicada por " + source["name"])
+        })
+    return items, {
+        "id": source["id"],
+        "name": source["name"],
+        "ok": True,
+        "mode": "x_user_posts",
+        "items": len(items),
+        "message": "OK"
+    }
+
+
+def merge_items(old_items, new_items, refreshed_source_ids=None):
+    refreshed_source_ids = set(refreshed_source_ids or [])
+    if refreshed_source_ids:
+        old_items = [
+            item for item in old_items
+            if item.get("sourceId", "") not in refreshed_source_ids
+        ]
     merged = {}
     for item in old_items + new_items:
         if not item.get("id"):
@@ -471,11 +593,18 @@ def main():
     now = utc_now()
     collected = []
     source_status = []
+    refreshed_source_ids = set()
 
     for source in sources_config.get("sources", []):
         try:
             source_type = source.get("type")
-            if source_type == "meta_page_posts":
+            if source_type == "x_user_posts":
+                items, status = parse_x_user_posts(source)
+                collected.extend(items)
+                source_status.append(status)
+                if status.get("ok"):
+                    refreshed_source_ids.add(source["id"])
+            elif source_type == "meta_page_posts":
                 items, status = parse_meta_page_posts(source)
                 collected.extend(items)
                 source_status.append(status)
@@ -542,7 +671,7 @@ def main():
                 "message": f"Error controlado: {type(error).__name__}"
             })
 
-    items = merge_items(old_news.get("items", []), collected)
+    items = merge_items(old_news.get("items", []), collected, refreshed_source_ids)
     any_ok = any(status.get("ok") for status in source_status)
     news = {
         "version": 1,
