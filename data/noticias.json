@@ -1,9 +1,22 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-18T20:54:58Z",
+  "generatedAt": "2026-09-19T07:56:16Z",
   "status": "ok",
   "message": "Noticias actualizadas desde fuentes publicas.",
   "items": [
+    {
+      "id": "x-2101004758689407219",
+      "sourceId": "ugt-granada-la-palma-x",
+      "postId": "2101004758689407219",
+      "source": "UGT Granada La Palma · @UGT_LAPALMA",
+      "title": "Información sobre el exceso de jornada",
+      "summary": "PRÓXIMO VIERNES 25, EN HORARIO DE 8:30 A 17:30, ESTAREMOS DISPONIBLES EN EL SINDICATO DE UGT “Rambla de Capuchinos”. Para todo el que quiera información sobre: el exceso de jornada, las medidas y la postura de la empresa.",
+      "url": "https://x.com/UGT_LAPALMA/status/2101004758689407219",
+      "publishedAt": "2026-09-18T17:45:00Z",
+      "kind": "x_post",
+      "imageUrl": "https://pbs.twimg.com/media/HShEsJ_WsAAIpQN?format=webp&name=medium",
+      "imageAlt": "Cartel de UGT Granada La Palma sobre atención presencial el viernes 25 para informar del exceso de jornada"
+    },
     {
       "id": "x-2095439425018757203",
       "sourceId": "ugt-granada-la-palma-x",
@@ -42,19 +55,6 @@
       "kind": "x_post",
       "imageUrl": "https://pbs.twimg.com/media/HPgXK5bXsAAEghT?format=webp&name=medium",
       "imageAlt": "Aviso de UGT Granada La Palma sobre el festivo laborable del sábado 15"
-    },
-    {
-      "id": "x-2087135629280698626",
-      "sourceId": "ugt-granada-la-palma-x",
-      "postId": "2087135629280698626",
-      "source": "UGT Granada La Palma · @UGT_LAPALMA",
-      "title": "Atención a nuestr@s compañer@s",
-      "summary": "Atención a nuestr@s compañer@s.",
-      "url": "https://x.com/UGT_LAPALMA/status/2087135629280698626",
-      "publishedAt": "2026-08-11T00:00:00Z",
-      "kind": "x_post",
-      "imageUrl": "https://pbs.twimg.com/media/HPb-ytmXUAAhoxZ?format=webp&name=medium",
-      "imageAlt": "Aviso para la plantilla publicado por UGT Granada La Palma"
     }
   ]
 }
