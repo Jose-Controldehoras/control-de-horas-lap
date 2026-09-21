@@ -1,14 +1,14 @@
 {
-  "lastRun": "2026-09-18T12:22:11Z",
+  "lastRun": "2026-09-21T14:31:55Z",
   "lastBoeScan": "20260918",
   "boe": {
-    "ok": true,
-    "message": "Sumarios revisados desde 2026-09-17. 0 cambios de SMI detectados."
+    "ok": false,
+    "message": "Revision BOE controlada: HTTPError: HTTP Error 503: Service Unavailable"
   },
   "bopGranada": {
     "ok": true,
-    "message": "BOP de 2026-09-18 revisado. Sin tabla salarial nueva.",
-    "officialUrl": "https://bop-admin.dipgra.es/export/sites/bop/.galleries/Documentos-BOPs-en-PDF/bop-18_09_2026-b3c78428-b279-11f1-ac43-506b8df30cc0-1789686240593.pdf"
+    "message": "BOP de 2026-09-21 revisado. Sin tabla salarial nueva.",
+    "officialUrl": "https://bop-admin.dipgra.es/export/sites/bop/.galleries/Documentos-BOPs-en-PDF/bop-21_09_2026-d3b2a96b-b346-11f1-ac43-506b8df30cc0-1789945345719.pdf"
   },
-  "ok": true
+  "ok": false
 }
