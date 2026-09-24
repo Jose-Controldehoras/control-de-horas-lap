@@ -2,7 +2,8 @@ name: News robot
 
 on:
   schedule:
-    - cron: "17 6,12,18 * * *"
+    - cron: "17 8,20 * * *"
+      timezone: "Europe/Madrid"
   workflow_dispatch:
 
 permissions:
@@ -11,6 +12,7 @@ permissions:
 jobs:
   update-news:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     concurrency:
       group: news-robot
       cancel-in-progress: false
@@ -23,26 +25,24 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Validate robot
-        run: python3 tools/test_news_robot.py
+      - name: Install Spanish OCR
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes tesseract-ocr tesseract-ocr-spa
+          tesseract --version
+          tesseract --list-langs | grep --fixed-strings spa
 
-      - name: Run robot
-        env:
-          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
-          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
-          UGT_INSTAGRAM_USER_ID: ${{ secrets.UGT_INSTAGRAM_USER_ID }}
-          UGT_FACEBOOK_PAGE_ID: ${{ secrets.UGT_FACEBOOK_PAGE_ID }}
-          CCOO_INSTAGRAM_USER_ID: ${{ secrets.CCOO_INSTAGRAM_USER_ID }}
-          CCOO_FACEBOOK_PAGE_ID: ${{ secrets.CCOO_FACEBOOK_PAGE_ID }}
-        run: python3 tools/news_robot.py
+      - name: Validate robot
+        run: python3 tools/test_x_news_robot.py
+
+      - name: Read the four latest original X posts
+        run: python3 tools/x_news_robot.py
 
       - name: Validate generated JSON
-        run: |
-          python3 -m json.tool data/noticias.json >/dev/null
-          python3 -m json.tool data/news_robot_status.json >/dev/null
+        run: python3 -m json.tool data/noticias.json >/dev/null
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Actualizar noticias sindicales"
-          file_pattern: "data/noticias.json data/news_robot_status.json"
+          file_pattern: "data/noticias.json"

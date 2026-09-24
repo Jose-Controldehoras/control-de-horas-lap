@@ -2,7 +2,7 @@
 
 La app lee `data/noticias.json` desde GitHub para mostrar comunicados y enlaces de interes.
 
-El robot se ejecuta con GitHub Actions tres veces al dia. Si una fuente falla, queda apuntado en `data/news_robot_status.json`, pero no borra las noticias validas ni publica contenido dudoso.
+El robot se ejecuta con GitHub Actions dos veces al dia. Lee las cuatro publicaciones originales mas recientes de `@UGT_LAPALMA` y solo modifica el feed cuando detecta un cambio real.
 
 La app debe mostrar siempre que es informacion recopilada de fuentes publicas y que no es una aplicacion oficial de Granada La Palma ni de ningun sindicato.
 
@@ -23,13 +23,19 @@ Las fuentes de Instagram/Facebook quedan en modo vigilancia si no hay API oficia
 
 Si no aparece nada exacto de Granada La Palma, el robot mantiene noticias sindicales de Granada relacionadas con trabajadores, convenio, huelgas, paros, plantilla o condiciones laborales. Así la sección no queda vacía, pero la app muestra siempre la fuente original.
 
-## X API
+## X sin API de pago
 
-El robot puede leer las publicaciones de @UGT_LAPALMA mediante la API oficial de X y conservar el enlace original de cada imagen. Para activarlo hay que crear el secreto de GitHub Actions:
+El workflow activo lee el perfil publico `https://x.com/UGT_LAPALMA` sin iniciar sesion y sin utilizar la API de pago. El script `tools/x_news_robot.py`:
 
-- `X_BEARER_TOKEN`
+- Obtiene exclusivamente las cuatro publicaciones originales mas recientes; no incluye respuestas ni reposts.
+- Conserva el identificador, el texto visible, la fecha, el enlace original y la primera imagen publica de `pbs.twimg.com`.
+- Comprueba que cada imagen disponible responde y es realmente una imagen.
+- Usa Tesseract con espanol e ingles para leer el texto de los carteles. Esto permite generar un titulo y un resumen incluso cuando la publicacion solo contiene una imagen.
+- Mantiene siempre la atribucion `UGT Granada La Palma · @UGT_LAPALMA` y el enlace a X.
+- Compara los cuatro elementos completos con `data/noticias.json`. Si no cambian, no crea ningun commit.
+- Si X cambia su pagina, devuelve menos de cuatro publicaciones o alguna imagen no es valida, termina con error antes de escribir y conserva el feed anterior.
 
-El robot no descarga ni vuelve a publicar los archivos: guarda la URL HTTPS oficial de la imagen y la app abre siempre la publicacion original. Si falta el token o X rechaza la consulta, se conservan las noticias validas anteriores.
+No se necesita ningun secreto de GitHub ni token de X. Las imagenes no se vuelven a alojar: se conserva su URL publica oficial.
 
 ## Meta API
 
@@ -45,7 +51,8 @@ El token debe tener permisos validos para leer las fuentes configuradas. Si falt
 
 ## Funcionamiento
 
-- GitHub Actions ejecuta `.github/workflows/news-robot.yml` tres veces al día y también permite lanzarlo manualmente.
-- El script `tools/news_robot.py` descarga fuentes, filtra contenido y actualiza `data/noticias.json`.
-- Si una fuente falla, no borra las noticias buenas anteriores.
-- Antes de guardar, el workflow valida que los JSON generados sean correctos.
+- GitHub Actions ejecuta `.github/workflows/news-robot.yml` a las 08:17 y 20:17, hora de Madrid, y tambien permite lanzarlo manualmente.
+- El script activo es `tools/x_news_robot.py`; el robot general anterior se conserva como respaldo, pero no se ejecuta automaticamente.
+- Antes de consultar X se ejecuta `tools/test_x_news_robot.py`.
+- El workflow instala Tesseract OCR en el runner, valida `data/noticias.json` y solo confirma ese archivo cuando cambia.
+- El historial de Git conserva todas las versiones anteriores del JSON para poder restaurarlas.
