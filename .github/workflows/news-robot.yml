@@ -25,6 +25,11 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Install browser fallback
+        run: |
+          python3 -m pip install playwright
+          python3 -m playwright install --with-deps chromium
+
       - name: Install Spanish OCR
         run: |
           sudo apt-get update

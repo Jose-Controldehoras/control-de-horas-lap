@@ -6,6 +6,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -101,6 +102,77 @@ def extract_original_posts(page_html):
     if len(result) < MAX_POSTS:
         raise RuntimeError(f"X solo devolvio {len(result)} publicaciones originales; se conserva el feed anterior")
     return result[:MAX_POSTS]
+
+
+def fetch_original_posts_with_browser():
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError as error:
+        raise RuntimeError("X bloqueo la descarga y Playwright no esta instalado") from error
+
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(
+            headless=True,
+            args=["--disable-dev-shm-usage", "--no-sandbox"],
+        )
+        try:
+            page = browser.new_page(user_agent=USER_AGENT, locale="es-ES")
+            page.goto(PROFILE_URL, wait_until="domcontentloaded", timeout=60_000)
+            page.wait_for_selector("article", timeout=40_000)
+            collected = {}
+            for _ in range(5):
+                raw_posts = page.locator("article").evaluate_all(
+                    r"""articles => articles.map(article => {
+                      const links = Array.from(article.querySelectorAll('a[href]')).map(a => a.href);
+                      const status = links.find(href => /\/UGT_LAPALMA\/status\/\d+(?:$|[/?])/.test(href));
+                      const id = status ? (status.match(/\/status\/(\d+)/) || [])[1] : '';
+                      const textNode = article.querySelector('[data-testid="tweetText"]');
+                      const timeNode = article.querySelector('time[datetime]');
+                      const imageNode = article.querySelector('img[src*="pbs.twimg.com/media"]');
+                      const socialNode = article.querySelector('[data-testid="socialContext"]');
+                      return {
+                        postId: id || '',
+                        text: textNode ? textNode.innerText : '',
+                        publishedAt: timeNode ? timeNode.getAttribute('datetime') : '',
+                        imageUrl: imageNode ? imageNode.src : '',
+                        socialContext: socialNode ? socialNode.innerText : ''
+                      };
+                    })"""
+                )
+                for post in raw_posts:
+                    context = (post.get("socialContext") or "").casefold()
+                    if not post.get("postId") or "repost" in context or "republic" in context:
+                        continue
+                    post["text"] = visible_post_text(post.get("text", ""))
+                    post["publishedAt"] = parse_iso_date(post.get("publishedAt", ""))
+                    post["imageUrl"] = medium_image_url(post.get("imageUrl", ""))
+                    if post["publishedAt"]:
+                        collected[post["postId"]] = post
+                if len(collected) >= MAX_POSTS:
+                    break
+                page.mouse.wheel(0, 1800)
+                page.wait_for_timeout(1500)
+        finally:
+            browser.close()
+    posts = sorted(collected.values(), key=lambda post: int(post["postId"]), reverse=True)
+    if len(posts) < MAX_POSTS:
+        raise RuntimeError(f"El navegador solo encontro {len(posts)} publicaciones originales")
+    return posts[:MAX_POSTS]
+
+
+def parse_iso_date(value):
+    if not value:
+        return ""
+    parsed = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+    return parsed.astimezone(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def fetch_original_posts():
+    try:
+        return extract_original_posts(fetch_profile_html())
+    except (urllib.error.URLError, RuntimeError) as direct_error:
+        print(f"Lectura directa no disponible ({type(direct_error).__name__}); se usa Chromium.")
+        return fetch_original_posts_with_browser()
 
 
 def clean_ocr_text(value):
@@ -207,7 +279,7 @@ def load_news():
 
 def update_news(check_only=False):
     previous = load_news()
-    posts = extract_original_posts(fetch_profile_html())
+    posts = fetch_original_posts()
     items = build_items(posts, previous.get("items", []))
     if previous.get("items", []) == items:
         print("Sin cambios: las cuatro publicaciones de X ya estan actualizadas.")
