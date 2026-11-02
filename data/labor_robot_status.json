@@ -1,14 +1,13 @@
 {
-  "lastRun": "2026-10-30T14:30:15Z",
-  "lastBoeScan": "20261030",
+  "lastRun": "2026-11-02T17:24:46Z",
+  "lastBoeScan": "20261102",
   "boe": {
     "ok": true,
-    "message": "Sumarios revisados desde 2026-10-29. 0 cambios de SMI detectados."
+    "message": "Sumarios revisados desde 2026-10-31. 0 cambios de SMI detectados."
   },
   "bopGranada": {
-    "ok": true,
-    "message": "BOP de 2026-10-30 revisado. Sin tabla salarial nueva.",
-    "officialUrl": "https://bop-admin.dipgra.es/export/sites/bop/.galleries/Documentos-BOPs-en-PDF/bop-30_10_2026-a8d8fd85-d385-11f1-bd48-506b8df30cc0-1793318488873.pdf"
+    "ok": false,
+    "message": "Revision BOP controlada: ValueError: No se encontro el boletin diario de Granada"
   },
-  "ok": true
+  "ok": false
 }
