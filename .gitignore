@@ -35,3 +35,6 @@ google-services.json
 # Python tooling
 __pycache__/
 *.py[cod]
+
+# Informe temporal del robot laboral
+robot_report.md
