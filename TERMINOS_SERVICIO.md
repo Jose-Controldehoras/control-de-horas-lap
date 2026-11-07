@@ -31,7 +31,7 @@ La alarma de turno de mañana, los recordatorios y el aviso por movimiento depen
 
 ## 6. Tus datos y las copias de seguridad
 
-Tus datos se guardan solo en tu móvil, como explica la [política de privacidad](POLITICA_PRIVACIDAD.md). El desarrollador no tiene acceso a ellos y no puede recuperarlos. Si borras la aplicación, sus datos o cambias de móvil sin hacer una copia de seguridad, se pierden. Haz copias de vez en cuando desde la propia aplicación.
+Tus datos se guardan solo en tu móvil, como explica la [política de privacidad](https://sites.google.com/view/controldehoraslap-privacidad/inicio). El desarrollador no tiene acceso a ellos y no puede recuperarlos. Si borras la aplicación, sus datos o cambias de móvil sin hacer una copia de seguridad, se pierden. Haz copias de vez en cuando desde la propia aplicación.
 
 ## 7. Precio, pago y actualizaciones
 
