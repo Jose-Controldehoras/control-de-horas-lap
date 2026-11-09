@@ -1,15 +1,15 @@
 {
-  "lastRun": "2026-11-07T14:11:36Z",
-  "lastBoeScan": "20261107",
+  "lastRun": "2026-11-09T17:40:33Z",
+  "lastBoeScan": "20261109",
   "boe": {
     "ok": true,
     "message": "BOE revisado desde 2026-11-08. 0 SMI encontrados."
   },
   "bopGranada": {
     "ok": true,
-    "message": "Revisado hasta el 2026-11-06: 0 boletines, 0 anuncios del convenio."
+    "message": "Revisado hasta el 2026-11-09: 1 boletines, 0 anuncios del convenio."
   },
-  "lastBopScan": "2026-11-06",
+  "lastBopScan": "2026-11-09",
   "seenAnnouncements": [],
   "consecutiveFailures": 0,
   "ok": true
