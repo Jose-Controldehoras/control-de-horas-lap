@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-11-20T16:15:56Z",
+  "lastRun": "2026-11-21T15:27:42Z",
   "lastBoeScan": "20261118",
   "boe": {
     "ok": false,
@@ -7,10 +7,10 @@
   },
   "bopGranada": {
     "ok": true,
-    "message": "Revisado hasta el 2026-11-20: 1 boletines, 0 anuncios del convenio."
+    "message": "Revisado hasta el 2026-11-20: 0 boletines, 0 anuncios del convenio."
   },
   "lastBopScan": "2026-11-20",
   "seenAnnouncements": [],
-  "consecutiveFailures": 2,
+  "consecutiveFailures": 3,
   "ok": false
 }
