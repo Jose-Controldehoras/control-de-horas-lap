@@ -82,7 +82,12 @@ def normalized(value):
 
 
 def decimal(value):
-    return float(value.replace(".", "").replace(",", "."))
+    # El BOE separa los miles con punto o con espacio: "1.286" o "1 286".
+    return float(re.sub(r"[\s.]", "", value).replace(",", "."))
+
+
+# Importe con miles separados por punto o espacio y, opcionalmente, centimos.
+AMOUNT = r"(?<!\d)(\d{1,3}(?:[ .]\d{3})+(?:,\d{1,2})?|\d+(?:,\d{1,2})?)"
 
 
 def find_amount(text, pattern):
@@ -109,10 +114,10 @@ def parse_boe_smi_document(item, publication_date):
         url = f"https://www.boe.es/buscar/act.php?id={urllib.parse.quote(document_id)}"
     body = normalized(fetch_text(url))
     daily = find_amount(body, r"(\d{1,3},\d{1,2})\s*euros?\s*/?\s*dia")
-    monthly = find_amount(body, r"(\d[\d\.,]*)\s*euros?\s*/?\s*mes")
+    monthly = find_amount(body, AMOUNT + r"\s*euros?\s*/?\s*mes")
     year_match = re.search(r"para\s+(\d{4})", normalized(title))
     year = int(year_match.group(1)) if year_match else publication_date.year
-    annual_match = re.search(r"computo anual[^0-9]{0,120}(\d[\d\.,]*)\s*euros", body, re.I | re.S)
+    annual_match = re.search(r"computo anual[^0-9]{0,120}" + AMOUNT + r"\s*euros", body, re.I | re.S)
     annual = decimal(annual_match.group(1)) if annual_match else round(monthly * 14, 2)
     effective_match = re.search(r"efectos?[^.]{0,100}?(\d{1,2})\s+de\s+enero\s+de\s+(\d{4})", body)
     effective_year = int(effective_match.group(2)) if effective_match else year
