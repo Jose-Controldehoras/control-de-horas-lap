@@ -152,7 +152,21 @@ def scan_boe(labor, status, today):
             root = ET.fromstring(xml)
             for item in root.findall(".//item"):
                 if "salario minimo interprofesional para" in normalized(item.findtext("titulo", "")):
-                    found.append(parse_boe_smi_document(item, day))
+                    try:
+                        found.append(parse_boe_smi_document(item, day))
+                    except ValueError as error:
+                        # Avisa el primer dia, sin esperar a los dias seguidos de fallo, y vuelve a
+                        # intentarlo en cada pasada hasta que se pueda leer.
+                        document_id = item.findtext("identificador", "").strip()
+                        alerted = status.setdefault("boeParseAlerts", [])
+                        if document_id not in alerted:
+                            alerted.append(document_id)
+                            report.append(
+                                f"- **Nuevo decreto del SMI que no he sabido leer:** {document_id} "
+                                f"({item.findtext('titulo', '').strip()}): {error}. La app lo consulta "
+                                "en el BOE por su cuenta, pero revisa el robot."
+                            )
+                        raise
         except urllib.error.HTTPError as error:
             if error.code != 404:
                 raise

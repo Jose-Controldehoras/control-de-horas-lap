@@ -16,15 +16,16 @@ permissions:
 jobs:
   update-labor-values:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     concurrency:
       group: labor-values-robot
       cancel-in-progress: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -50,7 +51,7 @@ jobs:
           rm robot_report.md
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Actualizar valores laborales oficiales"
           file_pattern: "data/laboral.json data/convenio_frutas_granada.json data/labor_robot_status.json"
