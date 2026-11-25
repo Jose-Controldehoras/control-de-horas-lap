@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-16T18:00:00Z",
+  "generatedAt": "2026-11-25T09:28:22Z",
   "smi": [
     {
       "revision": "smi-2022",
@@ -47,6 +47,17 @@
       "publishedAt": "2026-02-19",
       "reference": "BOE-A-2026-3815",
       "officialUrl": "https://www.boe.es/buscar/act.php?id=BOE-A-2026-3815"
+    },
+    {
+      "revision": "smi-2027-boe-a-2026-24189",
+      "year": 2027,
+      "daily": 42.87,
+      "monthly": 1286.0,
+      "annual": 18004.0,
+      "effectiveFrom": "2027-01-01",
+      "publishedAt": "2026-11-19",
+      "reference": "BOE-A-2026-24189",
+      "officialUrl": "https://www.boe.es/buscar/act.php?id=BOE-A-2026-24189"
     }
   ],
   "salaryTables": {
@@ -80,6 +91,16 @@
     }
   },
   "news": [
+    {
+      "id": "labor-smi-2027",
+      "kind": "official_update",
+      "source": "Actualizacion laboral oficial",
+      "title": "SMI 2027 actualizado en la app",
+      "summary": "El SMI oficial es de 42.87 EUR al dia y 1286.00 EUR al mes, con efectos desde 2027-01-01.",
+      "publishedAt": "2026-11-19T00:00:00Z",
+      "effectiveFrom": "2027-01-01",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2026-24189"
+    },
     {
       "id": "labor-smi-2026",
       "kind": "official_update",
