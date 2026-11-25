@@ -90,6 +90,30 @@ def decimal(value):
 AMOUNT = r"(?<!\d)(\d{1,3}(?:[ .]\d{3})+(?:,\d{1,2})?|\d+(?:,\d{1,2})?)"
 
 
+MONTHS = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto",
+          "septiembre", "octubre", "noviembre", "diciembre"]
+
+
+def euros(value):
+    """Importe como se escribe en Espana: 42,87 / 1.286 / 1.286,50."""
+    text = f"{value:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    return text[:-3] if text.endswith(",00") else text
+
+
+def long_date(iso):
+    """2027-01-01 -> 1 de enero de 2027."""
+    day = dt.date.fromisoformat(iso[:10])
+    return f"{day.day} de {MONTHS[day.month - 1]} de {day.year}"
+
+
+def smi_summary(record):
+    return (
+        f"El SMI es de {euros(record['daily'])} € al día y {euros(record['monthly'])} € al mes, "
+        f"desde el {long_date(record['effectiveFrom'])}. La app lo usa para las vacaciones "
+        "pagadas de los fijos por horas y para la base mínima de cotización."
+    )
+
+
 def find_amount(text, pattern):
     match = re.search(pattern, text, re.I | re.S)
     if not match:
@@ -186,10 +210,7 @@ def scan_boe(labor, status, today):
             "kind": "official_update",
             "source": "Actualizacion laboral oficial",
             "title": f"SMI {record['year']} actualizado en la app",
-            "summary": (
-                f"El SMI oficial es de {record['daily']:.2f} EUR al dia y "
-                f"{record['monthly']:.2f} EUR al mes, con efectos desde {record['effectiveFrom']}."
-            ),
+            "summary": smi_summary(record),
             "publishedAt": record["publishedAt"] + "T00:00:00Z",
             "effectiveFrom": record["effectiveFrom"],
             "url": record["officialUrl"],
@@ -462,9 +483,9 @@ def process_announcement(labor, convention, item, day):
                         "source": "Convenio oficial de Granada",
                         "title": "Nueva tabla salarial oficial",
                         "summary": (
-                            f"La hora normal pasa a {mozo['normal']:.2f} EUR para manipulador/a y mozo/a y a "
-                            f"{jefe['normal']:.2f} EUR para jefe/a de linea y de equipo, desde "
-                            f"{table['effectiveFrom']}. La app te pedira confirmacion y calculara los atrasos."
+                            f"La hora normal pasa a {euros(mozo['normal'])} € para manipulador/a y mozo/a y a "
+                            f"{euros(jefe['normal'])} € para jefe/a de línea y de equipo, desde el "
+                            f"{long_date(table['effectiveFrom'])}. La app te pedirá confirmación y calculará los atrasos."
                         ),
                         "publishedAt": day.isoformat() + "T00:00:00Z",
                         "effectiveFrom": table["effectiveFrom"],

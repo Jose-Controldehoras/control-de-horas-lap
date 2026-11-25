@@ -96,7 +96,7 @@
       "kind": "official_update",
       "source": "Actualizacion laboral oficial",
       "title": "SMI 2027 actualizado en la app",
-      "summary": "El SMI oficial es de 42.87 EUR al dia y 1286.00 EUR al mes, con efectos desde 2027-01-01.",
+      "summary": "El SMI es de 42,87 € al día y 1.286 € al mes, desde el 1 de enero de 2027. La app lo usa para las vacaciones pagadas de los fijos por horas y para la base mínima de cotización.",
       "publishedAt": "2026-11-19T00:00:00Z",
       "effectiveFrom": "2027-01-01",
       "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2026-24189"
